@@ -6,13 +6,7 @@ const app = new Koa;
 r.get("/recommend/:category", ctx => {
     //ctx.body = JSON.stringify([ctx.params,ctx.query])
     let res = [];
-    let videoDetail = {
-        id: 1145141919,
-        title: "真夏の夜の银梦 合辑",
-        category: "R18",
-        views: 893931,
-        img: "https://img.moegirl.org/common/b/b8/%E7%9C%9F%E5%A4%8F%E3%81%AE%E5%A4%9C%E3%81%AE%E6%B7%AB%E5%A4%A2.jpg"
-    }
+    let videoDetail = videoDetailCreator();
     for (let i = 0; i < ctx.query.length; i++)
         res.push(videoDetail);
     ctx.body = JSON.stringify({ code: 200, result: res });
@@ -46,11 +40,21 @@ r.get("/categories", ctx => {
     ];
     ctx.body = JSON.stringify({ code: 200, result: res })
 })
-r.get("/url/:id", ctx => {
+r.get("/detail/:id", ctx => {
     let res = {
-        id: 123456789,
-        url: "https://xb2016-my.sharepoint.com/:v:/g/personal/corps_rbq_show/EQTPeztXSR5JiH9Vod-VuGIB1dM-TvqHoDtTb5tH6mX6YQ?e=yr2hCB&download=1"
+        url: "https://xb2016-my.sharepoint.com/:v:/g/personal/corps_rbq_show/EQTPeztXSR5JiH9Vod-VuGIB1dM-TvqHoDtTb5tH6mX6YQ?e=yr2hCB&download=1",
+        ...videoDetailCreator()
     };
     ctx.body = JSON.stringify({ code: 200, result: res });
 })
 app.use(r.routes()).listen(8900);
+
+function videoDetailCreator() {
+    return {
+        id: 1000111101,
+        title: "末日时在做什么？有没有空？ #12",
+        category: "番剧",
+        views: (10 * Math.random()) ** (Math.random() * 10) >> 0,
+        img: "https://i.loli.net/2018/08/07/5b6951d44bdf3.png"
+    };
+}
