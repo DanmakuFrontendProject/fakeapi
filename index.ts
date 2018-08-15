@@ -47,6 +47,19 @@ r.get("/detail/:id", ctx => {
     };
     ctx.body = JSON.stringify({ code: 200, result: res });
 })
+r.get("/userData/:id?", ctx => {
+    let res = {
+        id: 0b01010110011111110001011011001110110111100011,
+        name: "String Value",
+        email: "String@Value.Example",
+        username: "StrVal",
+        group: 10388,
+        avatar: "Nullptr",
+        regtime: (new Date).getTime(), //?
+        lastLoginTime: (new Date).getTime() //?
+    }
+    ctx.body = JSON.stringify({ code: 200, result: res })
+})
 app.use(r.routes()).listen(8900);
 
 function videoDetailCreator() {
